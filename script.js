@@ -4,7 +4,12 @@ function removeActiveClass() {
     btn.classList.remove("active");
   }
 }
-
+const allBtn = document.getElementById("all-btn");
+allBtn.addEventListener("click", function () {
+  removeActiveClass();
+  allBtn.classList.add("active");
+  loadVideos();
+});
 const loadCategories = () => {
   fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
     .then((res) => res.json())
@@ -14,7 +19,7 @@ const loadVideos = () => {
   fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
     .then((res) => res.json())
     .then((data) => {
-      displayVideos(data);
+      displayVideos(data.videos);
     });
 };
 

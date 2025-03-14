@@ -15,8 +15,10 @@ const loadCategories = () => {
     .then((res) => res.json())
     .then((data) => displayCategories(data.categories));
 };
-const loadVideos = () => {
-  fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+const loadVideos = (titleInput = "") => {
+  fetch(
+    `https://openapi.programming-hero.com/api/phero-tube/videos?title=${titleInput}`
+  )
     .then((res) => res.json())
     .then((data) => {
       displayVideos(data.videos);
@@ -67,8 +69,8 @@ const displayVideos = (videos) => {
   if (videos.length === 0) {
     videosContainer.innerHTML = `<div class="flex flex-col items-center justify-center">
         <img src="assest/Icon.png" alt="" />
-        <h1 class="text-2xl font-bold text-center">
-          Opps No video in this section
+        <h1 class="text-2xl mt-10 font-bold text-center">
+          Opps No video Found
         </h1>
       </div>`;
     return;
@@ -125,6 +127,11 @@ const displayVideos = (videos) => {
     videosContainer.appendChild(newVideo);
   });
 };
+
+document.getElementById("search-box").addEventListener("keyup", (event) => {
+  const input = event.target.value;
+  loadVideos(input);
+});
 
 loadCategories();
 loadVideos();

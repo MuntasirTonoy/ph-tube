@@ -1,3 +1,11 @@
+const showLoader = () => {
+  document.getElementById("loader").classList.remove("hidden");
+  document.getElementById("videos-container").classList.add("hidden");
+};
+const hideLoader = () => {
+  document.getElementById("loader").classList.add("hidden");
+  document.getElementById("videos-container").classList.remove("hidden");
+};
 function removeActiveClass() {
   const activeButtons = document.getElementsByClassName("active");
   for (let btn of activeButtons) {
@@ -16,6 +24,7 @@ const loadCategories = () => {
     .then((data) => displayCategories(data.categories));
 };
 const loadVideos = (titleInput = "") => {
+  showLoader();
   fetch(
     `https://openapi.programming-hero.com/api/phero-tube/videos?title=${titleInput}`
   )
@@ -26,6 +35,7 @@ const loadVideos = (titleInput = "") => {
 };
 
 const loadCatVideos = (id) => {
+  showLoader();
   let catUrl = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
   fetch(catUrl)
     .then((res) => res.json())
@@ -126,6 +136,7 @@ const displayVideos = (videos) => {
 
     videosContainer.appendChild(newVideo);
   });
+  hideLoader();
 };
 
 document.getElementById("search-box").addEventListener("keyup", (event) => {

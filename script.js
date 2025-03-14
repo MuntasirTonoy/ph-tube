@@ -103,16 +103,25 @@ const displayVideos = (videos) => {
               </div>
             </div>
             <div class="space-y-1">
-              <h2 class="card-title leading-5 line-clamp-2">${video.title} <i class="fa-solid fa-certificate"></i></h2>
-              <p class="text-gray-500 text-base">${video.authors[0].profile_name} </p>
+              <h2 class="card-title leading-5 line-clamp-2">${video.title} </h2>
+              <p class="text-gray-500 text-base flex items-center gap-1">${
+                video.authors[0].profile_name
+              } ${
+      video.authors[0].verified == true
+        ? ` <img src="assest/check.png" class="h-4" alt="" />`
+        : ``
+    } </p>
               <p class="text-gray-400 text-xs">${video.others.views} Views </p>
             </div>
           </div>
         </div>
-      <button onclick="loadVideoDetails('${video.video_id}')" class="btn btn-wide mb-2 mx-auto">Show Details</button>
+      <button onclick="loadVideoDetails('${
+        video.video_id
+      }')" class="btn btn-wide mb-2 mx-auto">Show Details</button>
       </div>
  
     `;
+
     videosContainer.appendChild(newVideo);
   });
 };
